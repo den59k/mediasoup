@@ -182,6 +182,19 @@ namespace RTC
 			}
 		}
 
+		{
+			auto it = this->ssrcTable.find(1);
+
+			if(it != this->ssrcTable.end()){
+
+				auto* producer = it->second;
+				this->ssrcTable.erase(1);
+				this->ssrcTable[packet->GetSsrc()] = producer;
+
+				return producer;
+			}
+		}
+
 		// Otherwise lookup into the MID table.
 		{
 			std::string mid;
@@ -223,6 +236,8 @@ namespace RTC
 				}
 			}
 		}
+
+		
 
 		return nullptr;
 	}

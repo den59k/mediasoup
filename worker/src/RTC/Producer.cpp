@@ -866,7 +866,7 @@ namespace RTC
 			bool isMediaPacket     = (mediaCodec->payloadType == payloadType);
 			bool isRtxPacket       = (rtxCodec && rtxCodec->payloadType == payloadType);
 
-			if (isMediaPacket && encoding.ssrc == ssrc)
+			if (isMediaPacket && (encoding.ssrc == ssrc || encoding.ssrc == 1))
 			{
 				auto* rtpStream = CreateRtpStream(packet, *mediaCodec, i);
 
