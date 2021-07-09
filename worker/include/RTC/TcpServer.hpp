@@ -21,8 +21,6 @@ namespace RTC
 
 	public:
 		TcpServer(Listener* listener, RTC::TcpConnection::Listener* connListener, std::string& ip);
-		TcpServer(
-		  Listener* listener, RTC::TcpConnection::Listener* connListener, std::string& ip, uint16_t port);
 		~TcpServer() override;
 
 		/* Pure virtual methods inherited from ::TcpServerHandler. */
@@ -34,7 +32,6 @@ namespace RTC
 		// Passed by argument.
 		Listener* listener{ nullptr };
 		RTC::TcpConnection::Listener* connListener{ nullptr };
-		bool fixedPort{ false };
 	};
 } // namespace RTC
 

@@ -340,7 +340,6 @@ export class Router extends EnhancedEventEmitter
 	async createWebRtcTransport(
 		{
 			listenIps,
-			port,
 			enableUdp = true,
 			enableTcp = false,
 			preferUdp = false,
@@ -383,7 +382,6 @@ export class Router extends EnhancedEventEmitter
 		const internal = { ...this._internal, transportId: uuidv4() };
 		const reqData = {
 			listenIps,
-			port,
 			enableUdp,
 			enableTcp,
 			preferUdp,
@@ -438,7 +436,6 @@ export class Router extends EnhancedEventEmitter
 	async createPlainTransport(
 		{
 			listenIp,
-			port,
 			rtcpMux = true,
 			comedia = false,
 			enableSctp = false,
@@ -478,7 +475,6 @@ export class Router extends EnhancedEventEmitter
 		const internal = { ...this._internal, transportId: uuidv4() };
 		const reqData = {
 			listenIp,
-			port,
 			rtcpMux,
 			comedia,
 			enableSctp,
@@ -545,7 +541,6 @@ export class Router extends EnhancedEventEmitter
 	async createPipeTransport(
 		{
 			listenIp,
-			port,
 			enableSctp = false,
 			numSctpStreams = { OS: 1024, MIS: 1024 },
 			maxSctpMessageSize = 268435456,
@@ -583,7 +578,6 @@ export class Router extends EnhancedEventEmitter
 		const internal = { ...this._internal, transportId: uuidv4() };
 		const reqData = {
 			listenIp,
-			port,
 			enableSctp,
 			numSctpStreams,
 			maxSctpMessageSize,

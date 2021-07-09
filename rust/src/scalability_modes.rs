@@ -355,7 +355,7 @@ impl ScalabilityMode {
 }
 
 impl<'de> Deserialize<'de> for ScalabilityMode {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> Result<Self, <D as Deserializer<'de>>::Error>
     where
         D: Deserializer<'de>,
     {
@@ -389,7 +389,7 @@ impl<'de> Deserialize<'de> for ScalabilityMode {
 }
 
 impl Serialize for ScalabilityMode {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> Result<<S as Serializer>::Ok, <S as Serializer>::Error>
     where
         S: Serializer,
     {

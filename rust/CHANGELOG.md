@@ -1,9 +1,5 @@
 # Changelog
 
-# Unreleased
-
-* Support for optional fixed port on transports
-
 ### 0.8.1
 
 * Add convenience methods for getting information from `TransportTuple` enum, especially local IP/port

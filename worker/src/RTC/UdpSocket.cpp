@@ -12,16 +12,7 @@ namespace RTC
 
 	UdpSocket::UdpSocket(Listener* listener, std::string& ip)
 	  : // This may throw.
-	    ::UdpSocketHandler::UdpSocketHandler(PortManager::BindUdp(ip)), listener(listener),
-	    fixedPort(false)
-	{
-		MS_TRACE();
-	}
-
-	UdpSocket::UdpSocket(Listener* listener, std::string& ip, uint16_t port)
-	  : // This may throw.
-	    ::UdpSocketHandler::UdpSocketHandler(PortManager::BindUdp(ip, port)), listener(listener),
-	    fixedPort(true)
+	    ::UdpSocketHandler::UdpSocketHandler(PortManager::BindUdp(ip)), listener(listener)
 	{
 		MS_TRACE();
 	}
@@ -30,10 +21,7 @@ namespace RTC
 	{
 		MS_TRACE();
 
-		if (!fixedPort)
-		{
-			PortManager::UnbindUdp(this->localIp, this->localPort);
-		}
+		PortManager::UnbindUdp(this->localIp, this->localPort);
 	}
 
 	void UdpSocket::UserOnUdpDatagramReceived(const uint8_t* data, size_t len, const struct sockaddr* addr)

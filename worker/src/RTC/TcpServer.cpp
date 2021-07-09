@@ -17,16 +17,7 @@ namespace RTC
 	TcpServer::TcpServer(Listener* listener, RTC::TcpConnection::Listener* connListener, std::string& ip)
 	  : // This may throw.
 	    ::TcpServerHandler::TcpServerHandler(RTC::PortManager::BindTcp(ip), 256), listener(listener),
-	    connListener(connListener), fixedPort(false)
-	{
-		MS_TRACE();
-	}
-
-	TcpServer::TcpServer(
-	  Listener* listener, RTC::TcpConnection::Listener* connListener, std::string& ip, uint16_t port)
-	  : // This may throw.
-	    ::TcpServerHandler::TcpServerHandler(RTC::PortManager::BindTcp(ip, port), 256),
-	    listener(listener), connListener(connListener), fixedPort(true)
+	    connListener(connListener)
 	{
 		MS_TRACE();
 	}
@@ -35,10 +26,7 @@ namespace RTC
 	{
 		MS_TRACE();
 
-		if (!fixedPort)
-		{
-			RTC::PortManager::UnbindTcp(this->localIp, this->localPort);
-		}
+		RTC::PortManager::UnbindTcp(this->localIp, this->localPort);
 	}
 
 	void TcpServer::UserOnTcpConnectionAlloc()

@@ -194,37 +194,37 @@ int uv__recvmmsg(int fd, struct uv__mmsghdr* mmsg, unsigned int vlen) {
 
 
 ssize_t uv__preadv(int fd, const struct iovec *iov, int iovcnt, int64_t offset) {
-#if !defined(__NR_preadv) || defined(__ANDROID_API__) && __ANDROID_API__ < 24
-  return errno = ENOSYS, -1;
-#else
+#if defined(__NR_preadv)
   return syscall(__NR_preadv, fd, iov, iovcnt, (long)offset, (long)(offset >> 32));
+#else
+  return errno = ENOSYS, -1;
 #endif
 }
 
 
 ssize_t uv__pwritev(int fd, const struct iovec *iov, int iovcnt, int64_t offset) {
-#if !defined(__NR_pwritev) || defined(__ANDROID_API__) && __ANDROID_API__ < 24
-  return errno = ENOSYS, -1;
-#else
+#if defined(__NR_pwritev)
   return syscall(__NR_pwritev, fd, iov, iovcnt, (long)offset, (long)(offset >> 32));
+#else
+  return errno = ENOSYS, -1;
 #endif
 }
 
 
 int uv__dup3(int oldfd, int newfd, int flags) {
-#if !defined(__NR_dup3) || defined(__ANDROID_API__) && __ANDROID_API__ < 21
-  return errno = ENOSYS, -1;
-#else
+#if defined(__NR_dup3)
   return syscall(__NR_dup3, oldfd, newfd, flags);
+#else
+  return errno = ENOSYS, -1;
 #endif
 }
 
 
 ssize_t
 uv__fs_copy_file_range(int fd_in,
-                       off_t* off_in,
+                       ssize_t* off_in,
                        int fd_out,
-                       off_t* off_out,
+                       ssize_t* off_out,
                        size_t len,
                        unsigned int flags)
 {
@@ -247,18 +247,21 @@ int uv__statx(int dirfd,
               int flags,
               unsigned int mask,
               struct uv__statx* statxbuf) {
-#if !defined(__NR_statx) || defined(__ANDROID_API__) && __ANDROID_API__ < 30
-  return errno = ENOSYS, -1;
-#else
+  /* __NR_statx make Android box killed by SIGSYS.
+   * That looks like a seccomp2 sandbox filter rejecting the system call.
+   */
+#if defined(__NR_statx) && !defined(__ANDROID__)
   return syscall(__NR_statx, dirfd, path, flags, mask, statxbuf);
+#else
+  return errno = ENOSYS, -1;
 #endif
 }
 
 
 ssize_t uv__getrandom(void* buf, size_t buflen, unsigned flags) {
-#if !defined(__NR_getrandom) || defined(__ANDROID_API__) && __ANDROID_API__ < 28
-  return errno = ENOSYS, -1;
-#else
+#if defined(__NR_getrandom)
   return syscall(__NR_getrandom, buf, buflen, flags);
+#else
+  return errno = ENOSYS, -1;
 #endif
 }

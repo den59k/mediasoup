@@ -100,7 +100,7 @@ TEST_IMPL(getaddrinfo_fail) {
   ASSERT(0 == uv_getaddrinfo(uv_default_loop(),
                              &req,
                              getaddrinfo_fail_cb,
-                             "example.invalid.",
+                             "xyzzy.xyzzy.xyzzy.",
                              NULL,
                              NULL));
   ASSERT(0 == uv_run(uv_default_loop(), UV_RUN_DEFAULT));
@@ -122,7 +122,7 @@ TEST_IMPL(getaddrinfo_fail_sync) {
   ASSERT(0 > uv_getaddrinfo(uv_default_loop(),
                             &req,
                             NULL,
-                            "example.invalid.",
+                            "xyzzy.xyzzy.xyzzy.",
                             NULL,
                             NULL));
   uv_freeaddrinfo(req.addrinfo);

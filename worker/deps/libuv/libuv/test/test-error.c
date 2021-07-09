@@ -37,9 +37,6 @@
  * See https://github.com/joyent/libuv/issues/210
  */
 TEST_IMPL(error_message) {
-#if defined(__ASAN__)
-  RETURN_SKIP("Test does not currently work in ASAN");
-#endif
   char buf[32];
 
   /* Cop out. Can't do proper checks on systems with
